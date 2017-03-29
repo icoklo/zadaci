@@ -16,11 +16,13 @@ abstract class Container
   public function __set($name, $value)
   {
       $functionName = str_cammel_case("set_{$name}_attr");
-      if(method_exists($this, $functionName)){
+      if(method_exists($this, $functionName))
+      {
           // if method exists execute it
           $this->$functionName($value);
       }
-      else{
+      else
+      {
           $this->attributes[$name] = $value;
       }
 
@@ -28,9 +30,10 @@ abstract class Container
 
   public function __get($name)
   {
-      echo "Getting $name\n";
+      //echo "Getting $name\n";
       $functionName = str_cammel_case("get_{$name}_attr");
-      if(method_exists($this, $functionName)){
+      if(method_exists($this, $functionName))
+      {
           return $this->$functionName($name);
       }
       else if(isset($this->attributes[$name]))
@@ -39,6 +42,16 @@ abstract class Container
       }
 
       return null;
+  }
+
+  public function __toString()
+  {
+    return $this->toJson($this->toArray());
+  }
+
+  public function toJson($array)
+  {
+    return json_encode($array);
   }
 
   /**
@@ -52,6 +65,4 @@ abstract class Container
     }, ARRAY_FILTER_USE_KEY);
   }
 
-  // @TODO: __toString treba vraćati JSON
-  // @TODO: napraviti toJson
 }

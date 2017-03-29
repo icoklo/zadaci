@@ -2,17 +2,15 @@
 // error_reporting( E_ALL );
 // ini_set('display_errors', 1);
 
-// ZAD 3:
-// npr korisnik zeli pristupati atributu firstname kao $a->firstname te
-// ako postoji funkcija izvrsi funkciju a ako ne
-// onda vrati atribut koji je korisnik trazio
-
 require_once "./Container.php";
 
 class User extends Container
 {
-    protected $hidden = ['password'];
+    protected $hidden = ['password', 'secret'];
 
+    // appends u laravelu sadrzava sva custom polja koja developer definira
+    // te koja se ne nalaze u DB, ali za njih treba obavezno napraviti
+    // accessor (getter) kao sto je kod mene getFullNameAttr
     protected $appends = ['full_name'];
 
     public function getFirstNameAttr()
@@ -58,11 +56,14 @@ $a->first_name = "igor";
 $a->status = 'active';
 $a->last_name = "coklo";
 $a->password = "123456";
+$a->phone_number ="098567567";
+$a->secret = "secret";
 
-echo "WIN:" . $a->getFullNameAttr() . "\n\n";
+//echo "phone: {$a->phone_number}";
+//echo "1:" . $a->getFullNameAttr() . "\n\n";
 
 $polje = $a->toArray();
-var_dump($polje);
+//var_dump($polje);
 
 if($a->status != "ACTIVE") {
     throw new \Exception("Error #0", 1);
@@ -84,4 +85,5 @@ if($a->first_name() != "funkcija") {
     throw new \Exception("Error #4", 1);
 }
 
-echo "\nAll is OK!";
+echo "\nAll is OK!\n";
+echo "\nIspis objekta a:\n{$a}\n";
