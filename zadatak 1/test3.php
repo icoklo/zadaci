@@ -45,11 +45,17 @@ class User extends Container
         return $this->first_name." ".$this->last_name;
     }
 
+    public function setStatusAttr($value)
+    {
+        $this->attributes['status'] = strtoupper($value);
+    }
+
 }
 
 $a = new User();
 
 $a->first_name = "igor";
+$a->status = 'active';
 $a->last_name = "coklo";
 $a->password = "123456";
 
@@ -58,9 +64,13 @@ echo "WIN:" . $a->getFullNameAttr() . "\n\n";
 $polje = $a->toArray();
 var_dump($polje);
 
-/*if($a->first_name != "Igor") {
+if($a->status != "ACTIVE") {
+    throw new \Exception("Error #0", 1);
+}
+
+if($a->first_name != "Igor") {
     throw new \Exception("Error #1", 1);
-}*/
+}
 
 if($a->last_name != "Coklo") {
     throw new \Exception("Error #2", 1);
@@ -70,7 +80,7 @@ if($a->full_name != "Igor Coklo") {
     throw new \Exception("Error #3", 1);
 }
 
-if($a->full_name() != "funkcija") {
+if($a->first_name() != "funkcija") {
     throw new \Exception("Error #4", 1);
 }
 
