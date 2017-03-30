@@ -2,9 +2,9 @@
 // error_reporting( E_ALL );
 // ini_set('display_errors', 1);
 
-require_once "./Container.php";
+require_once "./Model.php";
 
-class User extends Container
+class User extends Model
 {
     protected $hidden = ['password', 'secret'];
 
