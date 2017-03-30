@@ -2,7 +2,7 @@
 
 require_once "functions.php";
 
-abstract class Container
+abstract class MyModel
 {
   protected $attributes = [];
 
